@@ -8,7 +8,14 @@ const AllocationForm = (props) => {
   const [cost, setCost] = useState("");
   const [action, setAction] = useState("");
 
-  const submitevent = () => {
+  const submitEvent = () => {
+    //validate not an empty string
+    if (isNaN(parseInt(cost))) {
+      alert(`Please input a number`);
+      setCost("");
+      return;
+    }
+    //validate if added cost is greater than remaining budget
     if (cost > remaining) {
       alert(`The value cannot exceed remaining funds £${remaining}`);
       setCost("");
@@ -30,6 +37,12 @@ const AllocationForm = (props) => {
         type: "ADD_EXPENSE",
         payload: expense,
       });
+    }
+  };
+
+  const validateNumericInput = (event) => {
+    if (event.key === "e" || event.key === "-" || event.key === "+") {
+      event.preventDefault();
     }
   };
 
@@ -67,7 +80,6 @@ const AllocationForm = (props) => {
               Admin
             </option>
           </select>
-
           <div className="input-group-prepend" style={{ marginLeft: "2rem" }}>
             <label className="input-group-text" htmlFor="inputGroupSelect02">
               Allocation
@@ -85,19 +97,19 @@ const AllocationForm = (props) => {
               Reduce
             </option>
           </select>
-
+          <label style={{ marginLeft: "2rem" }}>£</label>
           <input
             required="required"
             type="number"
             id="cost"
             value={cost}
-            style={{ marginLeft: "2rem", size: 10 }}
+            style={{ marginLeft: ".5rem", size: 10 }}
             onChange={(event) => setCost(event.target.value)}
+            onKeyDown={(event) => validateNumericInput(event)}
           ></input>
-
           <button
             className="btn btn-primary"
-            onClick={submitevent}
+            onClick={submitEvent}
             style={{ marginLeft: "2rem" }}
           >
             Save
