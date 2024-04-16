@@ -8,12 +8,6 @@ const Budget = () => {
   const totalExpenses = expenses.reduce((total, item) => {
     return (total = total + item.cost);
   }, 0);
-  // function updateBudgetState(updatedBudgetValue) {
-  //   dispatch({
-  //     type: "SET_BUDGET",
-  //     payload: updatedBudgetValue,
-  //   });
-  // }
 
   useEffect(() => {
     if (newBudget) {
@@ -57,7 +51,7 @@ const Budget = () => {
         step="10"
         max={BUDGET_MAX}
         min={totalExpenses}
-        value={newBudget}
+        value={budget}
         onChange={handleBudgetChange}
         onBlur={handleBudgetMinimum}
       ></input>
